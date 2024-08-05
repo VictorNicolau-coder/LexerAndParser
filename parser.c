@@ -45,9 +45,6 @@ void parse() {
     lex(lexema, token);
     expr(lexema, token);
 
-    for (int i = 0; i < 19; i++){printf("%c", token[i]);}
-    puts(" ");
-
     if (strcmp(token, "EOF") != 0) printf("Erro de sintaxe: Final inesperado\n");
     else printf("Análise concluída com sucesso.\n");
 }
