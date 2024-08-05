@@ -25,7 +25,7 @@ void factor(char* lexema, char* token) {
 
 void term(char* lexema, char* token) {
     factor(lexema, token);
-    while (!strcmp(token, "OPMULTIPLICACAO") || !strcmp(token, "OPDIVISAO")) {
+    while (!strcmp(token, "OPMULTIPLICAÇÃO") || !strcmp(token, "OPDIVISÃO")) {
         lex(lexema, token);
         factor(lexema, token);
     }
@@ -33,7 +33,7 @@ void term(char* lexema, char* token) {
 
 void expr(char* lexema, char* token) {
     term(lexema, token);
-    while (!strcmp(token, "OPSOMA") || !strcmp(token, "OPSUBTRACAO")) {
+    while (!strcmp(token, "OPSOMA") || !strcmp(token, "OPSUBTRAÇÃO")) {
         lex(lexema, token);
         term(lexema, token);
     }
@@ -45,10 +45,9 @@ void parse() {
     lex(lexema, token);
     expr(lexema, token);
 
-    //for (int i = 0; i < 19; i++){printf("%c", token[i]);}
-    
+    for (int i = 0; i < 19; i++){printf("%c", token[i]);}
     puts(" ");
 
-    if (strcmp(token, "EOF") == 0) printf("Erro de sintaxe: Final inesperado");
+    if (strcmp(token, "EOF") != 0) printf("Erro de sintaxe: Final inesperado\n");
     else printf("Análise concluída com sucesso.\n");
 }
