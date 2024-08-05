@@ -3,19 +3,25 @@
 #include "lexer.c"
 #include "parser.c"
 
-int main(){
+int main() {
     char lexema[TAMANHO_MAX_ENTRADA], token[19];
 
-    puts("Insira abaixo uma expressão matemática: ");
+    printf("Insira abaixo uma expressão matemática: ");
     fgets(entrada, TAMANHO_MAX_ENTRADA, stdin);
 
-    puts(" ");
+    puts("Análise Léxica: ");
 
     lex(lexema, token);
-    while(strcmp(token, "EOF")){
+    while (strcmp(token, "EOF")) {
         printf("Lexema: %s e Token: %s\n", lexema, token);
         lex(lexema, token);
     }
+
+    count = 0;
+    proximoChar = ' ';
+
+    puts("\nAnálise Sintática: ");
+    parse();
 
     return 0;
 }

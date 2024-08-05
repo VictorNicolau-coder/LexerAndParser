@@ -1,36 +1,54 @@
-#include "parser.h"
+#include <stdio.h>
+#include <string.h>
 
-void factor(){
-    if (!strcmp(next_token, "IDENT") || !strcmp(next_token, "LITERALINTEIRO")){
-        //next_token = lex();
+#include "parser.h"
+#include "lexer.h"
+
+void factor(char* lexema, char* token);
+void term(char* lexema, char* token);
+void expr(char* lexema, char* token);
+
+void factor(char* lexema, char* token) {
+    if (!strcmp(token, "IDENTIFICADOR") || !strcmp(token, "LITERALINTEIRO")) {
+        lex(lexema, token);
     } else {
-        if (!strcmp(next_token, "PARENTESESESQUERDO")){
-            //next_token = lex();
-            expr();
-            if (!strcmp(next_token, "PARENTESESDIREITO")){
-                int b; //next_token = lex();
-            } else {
-                return;
-            }
+        if (!strcmp(token, "PARENTESESESQUERDO")) {
+            lex(lexema, token);
+            expr(lexema, token);
+            if (!strcmp(token, "PARENTESESDIREITO")) lex(lexema, token);
+            else printf("Erro de sintaxe: Esperava ')'\n");
         } else { 
-            return; 
+            printf("Erro de sintaxe: Token inesperado '%s'\n", lexema);
         }
     }
 }
 
-void term(){
-    factor();
-    while (!strcmp(next_token, "OPMULTIPLICACAO") || !strcmp(next_token, "OPDIVISAO")){
-        //next_token = lex();
-        factor();
+void term(char* lexema, char* token) {
+    factor(lexema, token);
+    while (!strcmp(token, "OPMULTIPLICACAO") || !strcmp(token, "OPDIVISAO")) {
+        lex(lexema, token);
+        factor(lexema, token);
     }
 }
 
-void expr(){
-    term();
-    while (!strcmp(next_token, "OPSOMA") || !strcmp(next_token, "OPSUBTRACAO")) {
-        //next_token = lex();
-        term();
+void expr(char* lexema, char* token) {
+    term(lexema, token);
+    while (!strcmp(token, "OPSOMA") || !strcmp(token, "OPSUBTRACAO")) {
+        lex(lexema, token);
+        term(lexema, token);
     }
 }
 
+void parse() {
+    char lexema[TAMANHO_MAX_ENTRADA], token[19];
+    
+    lex(lexema, token);
+    expr(lexema, token);
+
+    //for (int i = 0; i < 19; i++){printf("%c", token[i]);}
+    
+    puts(" ");
+
+    if (strcmp(token, "EOF") == 0) printf("Erro de sintaxe: Final inesperado");
+    else printf("Análise concluída com sucesso.\n");
+}

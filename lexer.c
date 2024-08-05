@@ -55,4 +55,5 @@ char *verificaToken(){
     else if (proximoChar == '-') return "OPSUBTRAÇÃO";
     else if (proximoChar == '*') return "OPMULTIPLICAÇÃO";
     else if (proximoChar == '/') return "OPDIVISÃO";
+    else return "DESCONHECIDO";
 }
