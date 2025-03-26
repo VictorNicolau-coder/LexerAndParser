@@ -1,7 +1,7 @@
 CC = gcc
 
-run:
-	${CC} -o run main.c && ./run
+main:
+	${CC} -o run main.c
 
 delete:
 	rm run
